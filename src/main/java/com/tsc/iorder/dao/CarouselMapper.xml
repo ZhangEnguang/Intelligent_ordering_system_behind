@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsc.iorder.dao.CarouselMapper">
+<select id="list" resultType="com.tsc.iorder.domain.Carousel" parameterType="com.tsc.iorder.domain.SearchParam">
+    select * from i_carousel limit #{start},#{pageSize}
+</select>
+<select id="listCount" resultType="java.lang.Integer">
+    select count(*) from i_carousel
+</select>
+<update id="updateIsShow" parameterType="com.tsc.iorder.domain.SearchParam">
+    update i_carousel set isShow = #{event} where id = #{id}
+</update>
+<update id="show" parameterType="com.tsc.iorder.domain.SearchParam">
+     update i_carousel set isShow = 1 where id = #{id}
+</update>
+ <update id="hidden" parameterType="com.tsc.iorder.domain.SearchParam">
+     update i_carousel set isShow = 0 where id = #{id}
+ </update>
+</mapper>
