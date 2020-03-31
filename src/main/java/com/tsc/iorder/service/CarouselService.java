@@ -32,4 +32,13 @@ public class CarouselService {
     public void hidden(SearchParam searchParam) {
         this.mapper.hidden(searchParam);
     }
+
+    public boolean addCarousel(Carousel carousel) {
+        int i = this.mapper.addCarousel(carousel);
+        return i!=0;
+    }
+
+    public List<String> search() {
+        return this.mapper.search();
+    }
 }

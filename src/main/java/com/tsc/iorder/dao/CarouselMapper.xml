@@ -7,6 +7,9 @@
 <select id="listCount" resultType="java.lang.Integer">
     select count(*) from i_carousel
 </select>
+<select id="search" resultType="java.lang.String">
+    select path from i_carousel where isShow = 1
+</select>
 <update id="updateIsShow" parameterType="com.tsc.iorder.domain.SearchParam">
     update i_carousel set isShow = #{event} where id = #{id}
 </update>
@@ -16,4 +19,7 @@
  <update id="hidden" parameterType="com.tsc.iorder.domain.SearchParam">
      update i_carousel set isShow = 0 where id = #{id}
  </update>
+ <insert id="addCarousel" parameterType="com.tsc.iorder.domain.Carousel">
+     insert into i_carousel(path,description) values(#{path},#{description})
+ </insert>
 </mapper>

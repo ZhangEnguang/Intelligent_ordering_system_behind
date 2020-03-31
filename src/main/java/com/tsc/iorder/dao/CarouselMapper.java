@@ -17,4 +17,8 @@ public interface CarouselMapper {
     void show(SearchParam searchParam);
 
     void hidden(SearchParam searchParam);
+
+    int addCarousel(Carousel carousel);
+
+    List<String> search();
 }
