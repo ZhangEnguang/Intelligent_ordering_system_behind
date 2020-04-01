@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class CarouselService {
@@ -19,10 +18,6 @@ public class CarouselService {
 
     public void updateIsShow(SearchParam searchParam) {
         this.mapper.updateIsShow(searchParam);
-    }
-
-    public int listCount() {
-       return this.mapper.listCount();
     }
 
     public void show(SearchParam searchParam) {
@@ -40,5 +35,23 @@ public class CarouselService {
 
     public List<String> search() {
         return this.mapper.search();
+    }
+
+    public Carousel findById(int id) {
+        return this.mapper.findById(id);
+    }
+
+    public boolean update(Carousel carousel) {
+        int i = this.mapper.update(carousel);
+        return i!=0;
+    }
+
+    public List<Carousel> findSrc(String s) {
+       return this.mapper.findSrc(s);
+    }
+
+    public boolean delete(SearchParam searchParam) {
+        int i = this.mapper.delete(searchParam);
+        return i!=0;
     }
 }

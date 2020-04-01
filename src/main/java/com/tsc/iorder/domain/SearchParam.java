@@ -7,15 +7,17 @@ public class SearchParam {
     private int pageSize;
     private int event;
     private int id;
+    private String input;
 
     public SearchParam() {
     }
     public SearchParam(Map<String,Object> params){
         this.start = (int) params.get("start");
         this.pageSize = (int) params.get("pageSize");
+        this.input = (String) params.get("input");
     }
     public int getStart() {
-        return (start - 1) * getPageSize();
+        return start;
     }
 
     public void setStart(int start) {
@@ -44,5 +46,13 @@ public class SearchParam {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getInput() {
+        return input;
+    }
+
+    public void setInput(String input) {
+        this.input = input;
     }
 }

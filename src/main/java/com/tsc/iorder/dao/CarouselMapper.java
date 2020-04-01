@@ -12,8 +12,6 @@ public interface CarouselMapper {
 
     void updateIsShow(SearchParam searchParam);
 
-    int listCount();
-
     void show(SearchParam searchParam);
 
     void hidden(SearchParam searchParam);
@@ -21,4 +19,12 @@ public interface CarouselMapper {
     int addCarousel(Carousel carousel);
 
     List<String> search();
+
+    Carousel findById(int id);
+
+    int update(Carousel carousel);
+
+    List<Carousel> findSrc(String s);
+
+    int delete(SearchParam searchParam);
 }
