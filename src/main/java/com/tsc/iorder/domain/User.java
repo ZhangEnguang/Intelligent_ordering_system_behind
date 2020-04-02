@@ -7,22 +7,25 @@ public class User {
     private int root;
     private String img;
     private String name;
+    private String rootName;
 
-    public User(String id, String username, String password, int root, String img, String name) {
+    public User(String id, String username, String password, int root, String img, String name, String rootName) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.root = root;
         this.img = img;
         this.name = name;
+        this.rootName = rootName;
     }
 
-    public User(String username, String password, int root, String img, String name) {
+    public User(String username, String password, int root, String img, String name, String rootName) {
         this.username = username;
         this.password = password;
         this.root = root;
         this.img = img;
         this.name = name;
+        this.rootName = rootName;
     }
 
     public User() {
@@ -76,6 +79,14 @@ public class User {
         this.name = name;
     }
 
+    public String getRootName() {
+        return rootName;
+    }
+
+    public void setRootName(String rootName) {
+        this.rootName = rootName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -85,6 +96,7 @@ public class User {
                 ", root=" + root +
                 ", img='" + img + '\'' +
                 ", name='" + name + '\'' +
+                ", rootName='" + rootName + '\'' +
                 '}';
     }
 }

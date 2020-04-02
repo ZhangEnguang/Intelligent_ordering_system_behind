@@ -1,13 +1,24 @@
 package com.tsc.iorder.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.tsc.iorder.domain.SearchParam;
+import com.tsc.iorder.domain.User;
 import com.tsc.iorder.service.UserService;
+import com.tsc.iorder.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -16,6 +27,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService service;
+    public static String urlUser = "F:/ideaFile/Intelligent_ordering_system/IntelligentOrderingSystem/static/images/user";
+    public static String dbUser = "/static/images/user/";
     @RequestMapping("/findUser")
     @ResponseBody
     public Map<String,Object> findUser(HttpServletRequest request){
@@ -28,5 +41,24 @@ public class UserController {
         }
        return this.service.findUser(id);
 
+    }
+    @RequestMapping("/list")
+    @ResponseBody
+    public Map<String,Object> list(@RequestBody Map<String,Object> map){
+        Map<String,Object> resMap = new HashMap<>();
+        SearchParam searchParam = new SearchParam(map);
+        PageHelper.startPage(searchParam.getStart(),searchParam.getPageSize());
+        List<User> list =  this.service.list(searchParam);
+        PageInfo<User> pageInfo = new PageInfo<>(list);
+        resMap.put("page",pageInfo);
+        return resMap;
+    }
+    @RequestMapping("/upload")
+    @ResponseBody
+    public boolean upload(@RequestParam("file") MultipartFile file,User user) throws IOException {
+        String fileName = FileUtil.saveFile(file, urlUser);
+        user.setImg(dbUser+fileName);
+        user.setPassword("123456");
+        return this.service.addUser(user);
     }
 }

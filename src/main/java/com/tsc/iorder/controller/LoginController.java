@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -29,6 +30,11 @@ public class LoginController {
             cookie.setDomain("localhost");
             cookie.setPath("/");
             response.addCookie(cookie);
+            Cookie cookieRoot = new Cookie("root", String.valueOf(user.getRoot()));
+            cookieRoot.setMaxAge(24*3600);
+            cookieRoot.setDomain("localhost");
+            cookieRoot.setPath("/");
+            response.addCookie(cookieRoot);
         }
         return resMap;
     }
@@ -45,19 +51,27 @@ public class LoginController {
         cookie.setDomain("localhost");
         cookie.setPath("/");
         response.addCookie(cookie);
+        Cookie cookieRoot = new Cookie("root", null);
+        cookieRoot.setMaxAge(0);
+        cookieRoot.setDomain("localhost");
+        cookieRoot.setPath("/");
+        response.addCookie(cookieRoot);
     }
     @RequestMapping("/isLogin")
     @ResponseBody
-    public Boolean isLogin(HttpServletRequest request){
+    public Map<String,Object> isLogin(HttpServletRequest request){
         boolean b = false;
+        Map<String,Object> map = new HashMap<>();
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("userID")){
                 if (cookie.getValue()!=null&&!cookie.getValue().equals("")){
+                     map = this.service.findUser(cookie.getValue());
                     b = true;
                 }
             }
         }
-        return b;
+        map.put("isLogin",b);
+        return map;
     }
 }

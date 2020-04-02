@@ -1,11 +1,13 @@
 package com.tsc.iorder.service;
 
 import com.tsc.iorder.dao.UserMapper;
+import com.tsc.iorder.domain.SearchParam;
 import com.tsc.iorder.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -45,5 +47,14 @@ public class UserService {
         User user = this.mapper.findUserById(id);
         resMap.put("user",user);
         return resMap;
+    }
+
+    public List<User> list(SearchParam searchParam) {
+        return mapper.list(searchParam);
+    }
+
+    public boolean addUser(User user) {
+        int i = this.mapper.addUser(user);
+        return i!=0;
     }
 }
