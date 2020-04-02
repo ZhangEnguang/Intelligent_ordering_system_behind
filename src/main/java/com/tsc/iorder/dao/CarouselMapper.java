@@ -2,11 +2,12 @@ package com.tsc.iorder.dao;
 
 import com.tsc.iorder.domain.Carousel;
 import com.tsc.iorder.domain.SearchParam;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Component("carsouselMapper")
+
+@Mapper
 public interface CarouselMapper {
     List<Carousel> list(SearchParam searchParam);
 

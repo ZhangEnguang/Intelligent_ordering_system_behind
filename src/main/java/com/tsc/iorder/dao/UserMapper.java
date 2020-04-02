@@ -1,13 +1,13 @@
 package com.tsc.iorder.dao;
 
-import com.tsc.iorder.domain.Carousel;
 import com.tsc.iorder.domain.SearchParam;
 import com.tsc.iorder.domain.User;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Component("userMapper")
+
+@Mapper
 public interface UserMapper {
     User login(String username);
 

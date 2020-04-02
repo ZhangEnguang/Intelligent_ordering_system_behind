@@ -1,11 +1,12 @@
 package com.tsc.iorder.dao;
 
 import com.tsc.iorder.domain.Root;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Component("rootMapper")
+
+@Mapper
 public interface RootMapper {
     List<Root> list();
 }
