@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -60,5 +61,20 @@ public class UserController {
         user.setImg(dbUser+fileName);
         user.setPassword("123456");
         return this.service.addUser(user);
+    }
+    @RequestMapping("/delete")
+    @ResponseBody
+    public boolean delete(@RequestBody Map<String,Object> map){
+        SearchParam searchParam = new SearchParam();
+        searchParam.setId(Integer.valueOf((String) map.get("id")));
+        Map<String, Object> resMap = this.service.findUser((String) map.get("id"));
+        User user = (User) resMap.get("user");
+        String[] img = user.getImg().split("/");
+        File dir = new File(urlUser);
+        List<User> list = this.service.findImg(user.getImg());
+        if (list!=null&&list.size()==1){
+            FileUtil.deleteFile(dir,img[img.length-1]);
+        }
+        return this.service.delete(searchParam);
     }
 }

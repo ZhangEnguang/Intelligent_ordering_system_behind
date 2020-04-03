@@ -7,10 +7,16 @@
     <select id="findUserById" parameterType="string" resultType="com.tsc.iorder.domain.User">
         select u.*,r.rootName from i_user u,i_root r where u.root = r.id and u.id = #{id}
     </select>
+    <select id="findImg" parameterType="string" resultType="com.tsc.iorder.domain.User">
+        select u.*,r.rootName from i_user u,i_root r where u.root = r.id and u.img = #{img}
+    </select>
     <select id="list" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.User">
-        select u.*,r.rootName from i_user u,i_root r where u.root = r.id and concat(u.username,r.rootName,u.name) like '%${input}%'
+        select u.*,r.rootName from i_user u,i_root r where u.root = r.id and username !='root' and concat(u.username,r.rootName,u.name) like '%${input}%'
     </select>
     <insert id="addUser" parameterType="com.tsc.iorder.domain.User">
         insert into i_user(username,password,root,img,name) values(#{username},#{password},#{root},#{img},#{name})
     </insert>
+    <delete id="delete" parameterType="com.tsc.iorder.domain.SearchParam">
+        delete from i_user where id = #{id}
+    </delete>
 </mapper>

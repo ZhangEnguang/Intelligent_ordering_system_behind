@@ -57,4 +57,13 @@ public class UserService {
         int i = this.mapper.addUser(user);
         return i!=0;
     }
+
+    public List<User> findImg(String img) {
+        return this.mapper.findImg(img);
+    }
+
+    public boolean delete(SearchParam searchParam) {
+        int i = this.mapper.delete(searchParam);
+        return i!=0;
+    }
 }

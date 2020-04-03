@@ -16,4 +16,8 @@ public interface UserMapper {
     List<User> list(SearchParam searchParam);
 
     int addUser(User user);
+
+    List<User> findImg(String img);
+
+    int delete(SearchParam searchParam);
 }
