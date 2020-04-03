@@ -62,6 +62,25 @@ public class UserController {
         user.setPassword("123456");
         return this.service.addUser(user);
     }
+    @RequestMapping("/update")
+    @ResponseBody
+    public boolean update(@RequestParam("updateFile") MultipartFile file,User user) throws IOException {
+        Map<String, Object> resMap = this.service.findUser(String.valueOf(user.getId()));
+        User u = (User) resMap.get("user");
+        String[] img = u.getImg().split("/");
+        File dir = new File(urlUser);
+        String fileName = img[img.length-1];
+        if (!u.getImg().equals(dbUser+file.getOriginalFilename())){
+            fileName = FileUtil.saveFile(file, urlUser);
+        }
+        user.setImg(dbUser+fileName);
+        boolean b = this.service.update(user);
+        List<User> list = this.service.findImg(u.getImg());
+        if (list==null||list.size()==0){
+            FileUtil.deleteFile(dir,img[img.length-1]);
+        }
+        return b;
+    }
     @RequestMapping("/delete")
     @ResponseBody
     public boolean delete(@RequestBody Map<String,Object> map){
@@ -76,5 +95,25 @@ public class UserController {
             FileUtil.deleteFile(dir,img[img.length-1]);
         }
         return this.service.delete(searchParam);
+    }
+    @RequestMapping("/isExit")
+    @ResponseBody
+    public boolean isExit(@RequestBody Map<String,Object> map){
+        List<User> list =  this.service.findUsers((String)map.get("username"));
+        Map<String, Object> resMap = this.service.findUser((String) map.get("id"));
+        User user = (User) resMap.get("user");
+        if (user.getUsername().equals(map.get("username"))){
+           return true;
+        }else {
+            if (list!=null){
+                if (list.size()!=0){
+                    return false;
+                }else {
+                    return true;
+                }
+            }else {
+                return true;
+            }
+        }
     }
 }

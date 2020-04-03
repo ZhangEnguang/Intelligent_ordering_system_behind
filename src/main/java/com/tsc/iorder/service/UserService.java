@@ -66,4 +66,14 @@ public class UserService {
         int i = this.mapper.delete(searchParam);
         return i!=0;
     }
+
+    public List<User> findUsers(String username) {
+        return this.mapper.findUsers(username);
+
+    }
+
+    public boolean update(User user) {
+        int i = this.mapper.update(user);
+        return i!=0;
+    }
 }

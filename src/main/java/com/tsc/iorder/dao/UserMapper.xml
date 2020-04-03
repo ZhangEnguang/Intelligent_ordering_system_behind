@@ -13,9 +13,15 @@
     <select id="list" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.User">
         select u.*,r.rootName from i_user u,i_root r where u.root = r.id and username !='root' and concat(u.username,r.rootName,u.name) like '%${input}%'
     </select>
+    <select id="findUsers" parameterType="string" resultType="com.tsc.iorder.domain.User">
+        select * from i_user where username = #{username}
+    </select>
     <insert id="addUser" parameterType="com.tsc.iorder.domain.User">
         insert into i_user(username,password,root,img,name) values(#{username},#{password},#{root},#{img},#{name})
     </insert>
+    <update id="update" parameterType="com.tsc.iorder.domain.User">
+        update i_user set username = #{username},root = #{root},img = #{img},name = #{name} where id = #{id}
+    </update>
     <delete id="delete" parameterType="com.tsc.iorder.domain.SearchParam">
         delete from i_user where id = #{id}
     </delete>

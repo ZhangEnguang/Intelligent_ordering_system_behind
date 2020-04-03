@@ -3,11 +3,13 @@ package com.tsc.iorder.dao;
 import com.tsc.iorder.domain.SearchParam;
 import com.tsc.iorder.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
 @Mapper
+@Component("/userMapper")
 public interface UserMapper {
     User login(String username);
 
@@ -20,4 +22,8 @@ public interface UserMapper {
     List<User> findImg(String img);
 
     int delete(SearchParam searchParam);
+
+    List<User> findUsers(String username);
+
+    int update(User user);
 }

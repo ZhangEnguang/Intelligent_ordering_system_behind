@@ -73,13 +73,17 @@ public class CarouselController {
         Carousel cr = this.service.findById(carousel.getId());
         String[] pt = cr.getPath().split("/");
         File dir = new File(urlCarousel);
+        String fileName = pt[pt.length-1];
+        if (!cr.getPath().equals(dbUrlCarousel+file.getOriginalFilename())){
+            fileName = FileUtil.saveFile(file, urlCarousel);
+        }
+        carousel.setPath(dbUrlCarousel+fileName);
+        boolean b = this.service.update(carousel);
         List<Carousel> list = this.service.findSrc(cr.getPath());
-        if (list!=null&&list.size()==1){
+        if (list==null||list.size()==0){
             FileUtil.deleteFile(dir,pt[pt.length-1]);
         }
-        String fileName = FileUtil.saveFile(file, urlCarousel);
-        carousel.setPath(dbUrlCarousel+fileName);
-        return this.service.update(carousel);
+        return b;
     }
     @RequestMapping("/delete")
     @ResponseBody
