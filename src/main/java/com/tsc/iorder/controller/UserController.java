@@ -96,6 +96,24 @@ public class UserController {
         }
         return this.service.delete(searchParam);
     }
+    @RequestMapping("/checkName")
+    @ResponseBody
+    public Map<String,Object> checkName(@RequestBody Map<String,Object> map){
+        User user = new User();
+        Map<String,Object> resMap = new HashMap<>();
+        user.setUsername((String) map.get("username"));
+        User resUser =  this.service.findUserByUsername(user);
+        resMap.put("user",resUser);
+        return resMap;
+    }
+    @RequestMapping("/updatePass")
+    @ResponseBody
+    public boolean updatePass(@RequestBody Map<String,Object> map){
+        User user = new User();
+        user.setUsername((String) map.get("username"));
+        user.setPassword((String) map.get("password"));
+        return this.service.updatePass(user);
+    }
     @RequestMapping("/isExit")
     @ResponseBody
     public boolean isExit(@RequestBody Map<String,Object> map){

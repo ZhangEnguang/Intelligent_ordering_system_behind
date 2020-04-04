@@ -7,6 +7,9 @@
     <select id="findUserById" parameterType="string" resultType="com.tsc.iorder.domain.User">
         select u.*,r.rootName from i_user u,i_root r where u.root = r.id and u.id = #{id}
     </select>
+    <select id="findUserByUsername" parameterType="com.tsc.iorder.domain.User" resultType="com.tsc.iorder.domain.User">
+        select u.*,r.rootName from i_user u,i_root r where u.root = r.id and u.username = #{username}
+    </select>
     <select id="findImg" parameterType="string" resultType="com.tsc.iorder.domain.User">
         select u.*,r.rootName from i_user u,i_root r where u.root = r.id and u.img = #{img}
     </select>
@@ -21,6 +24,9 @@
     </insert>
     <update id="update" parameterType="com.tsc.iorder.domain.User">
         update i_user set username = #{username},root = #{root},img = #{img},name = #{name} where id = #{id}
+    </update>
+    <update id="updatePass" parameterType="com.tsc.iorder.domain.User">
+        update i_user set password = #{password} where username = #{username}
     </update>
     <delete id="delete" parameterType="com.tsc.iorder.domain.SearchParam">
         delete from i_user where id = #{id}

@@ -76,4 +76,13 @@ public class UserService {
         int i = this.mapper.update(user);
         return i!=0;
     }
+
+    public User findUserByUsername(User user) {
+        return this.mapper.findUserByUsername(user);
+    }
+
+    public boolean updatePass(User user) {
+        int i = this.mapper.updatePass(user);
+        return i!=0;
+    }
 }
