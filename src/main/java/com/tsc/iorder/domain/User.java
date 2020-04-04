@@ -8,8 +8,10 @@ public class User {
     private String img;
     private String name;
     private String rootName;
+    private String date;
+    private int state;
 
-    public User(String id, String username, String password, int root, String img, String name, String rootName) {
+    public User(String id, String username, String password, int root, String img, String name, String rootName, String date, int state) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -17,15 +19,19 @@ public class User {
         this.img = img;
         this.name = name;
         this.rootName = rootName;
+        this.date = date;
+        this.state = state;
     }
 
-    public User(String username, String password, int root, String img, String name, String rootName) {
+    public User(String username, String password, int root, String img, String name, String rootName, String date, int state) {
         this.username = username;
         this.password = password;
         this.root = root;
         this.img = img;
         this.name = name;
         this.rootName = rootName;
+        this.date = date;
+        this.state = state;
     }
 
     public User() {
@@ -87,6 +93,22 @@ public class User {
         this.rootName = rootName;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -97,6 +119,8 @@ public class User {
                 ", img='" + img + '\'' +
                 ", name='" + name + '\'' +
                 ", rootName='" + rootName + '\'' +
+                ", date='" + date + '\'' +
+                ", state=" + state +
                 '}';
     }
 }

@@ -20,13 +20,22 @@
         select * from i_user where username = #{username}
     </select>
     <insert id="addUser" parameterType="com.tsc.iorder.domain.User">
-        insert into i_user(username,password,root,img,name) values(#{username},#{password},#{root},#{img},#{name})
+        insert into i_user(username,password,root,img,name,date) values(#{username},#{password},#{root},#{img},#{name},#{date})
     </insert>
     <update id="update" parameterType="com.tsc.iorder.domain.User">
         update i_user set username = #{username},root = #{root},img = #{img},name = #{name} where id = #{id}
     </update>
     <update id="updatePass" parameterType="com.tsc.iorder.domain.User">
         update i_user set password = #{password} where username = #{username}
+    </update>
+    <update id="updateState" parameterType="com.tsc.iorder.domain.SearchParam">
+        update i_user set state = #{event} where id = #{id}
+    </update>
+    <update id="lock" parameterType="com.tsc.iorder.domain.SearchParam">
+        update i_user set state = 0 where id = #{id}
+    </update>
+    <update id="unlock" parameterType="com.tsc.iorder.domain.SearchParam">
+        update i_user set state = 1 where id = #{id}
     </update>
     <delete id="delete" parameterType="com.tsc.iorder.domain.SearchParam">
         delete from i_user where id = #{id}

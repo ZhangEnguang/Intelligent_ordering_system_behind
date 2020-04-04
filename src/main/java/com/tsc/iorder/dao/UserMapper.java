@@ -30,4 +30,10 @@ public interface UserMapper {
     User findUserByUsername(User user);
 
     int updatePass(User user);
+
+    void updateState(SearchParam searchParam);
+
+    void lock(SearchParam searchParam);
+
+    void unlock(SearchParam searchParam);
 }

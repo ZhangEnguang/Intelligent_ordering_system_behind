@@ -85,4 +85,16 @@ public class UserService {
         int i = this.mapper.updatePass(user);
         return i!=0;
     }
+
+    public void updateState(SearchParam searchParam) {
+        this.mapper.updateState(searchParam);
+    }
+
+    public void lock(SearchParam searchParam) {
+        this.mapper.lock(searchParam);
+    }
+
+    public void unlock(SearchParam searchParam) {
+        this.mapper.unlock(searchParam);
+    }
 }

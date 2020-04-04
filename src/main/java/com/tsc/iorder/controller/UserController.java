@@ -18,6 +18,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,14 +59,30 @@ public class UserController {
     @RequestMapping("/upload")
     @ResponseBody
     public boolean upload(@RequestParam("file") MultipartFile file,User user) throws IOException {
+        List<User> users = this.service.findUsers(user.getUsername());
+        if (users!=null){
+            return false;
+        }
         String fileName = FileUtil.saveFile(file, urlUser);
         user.setImg(dbUser+fileName);
         user.setPassword("123456");
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String format = sdf.format(date);
+        user.setDate(format);
         return this.service.addUser(user);
     }
     @RequestMapping("/update")
     @ResponseBody
     public boolean update(@RequestParam("updateFile") MultipartFile file,User user) throws IOException {
+        List<User> users = this.service.findUsers(user.getUsername());
+        Map<String, Object> userMap = this.service.findUser(String.valueOf(user.getId()));
+        User resUser = (User) userMap.get("user");
+        if (!resUser.getUsername().equals(user.getUsername())){
+            if (users!=null&&users.size()!=0){
+                return false;
+            }
+        }
         Map<String, Object> resMap = this.service.findUser(String.valueOf(user.getId()));
         User u = (User) resMap.get("user");
         String[] img = u.getImg().split("/");
@@ -111,8 +129,36 @@ public class UserController {
     public boolean updatePass(@RequestBody Map<String,Object> map){
         User user = new User();
         user.setUsername((String) map.get("username"));
-        user.setPassword((String) map.get("password"));
-        return this.service.updatePass(user);
+        User resUser =  this.service.findUserByUsername(user);
+        if (!resUser.getName().equals(map.get("name"))){
+            return false;
+        }else {
+            user.setPassword((String) map.get("password"));
+            return this.service.updatePass(user);
+        }
+
+    }
+    @RequestMapping("/updateState")
+    @ResponseBody
+    public void updateState(@RequestBody Map<String,Object> map){
+        SearchParam searchParam = new SearchParam();
+        searchParam.setId(Integer.valueOf((String) map.get("id")));
+        searchParam.setEvent((int) map.get("event"));
+        this.service.updateState(searchParam);
+    }
+    @RequestMapping("/lock")
+    @ResponseBody
+    public void lock(@RequestBody Map<String,Object> map){
+        SearchParam searchParam = new SearchParam();
+        searchParam.setId(Integer.valueOf((String) map.get("id")));
+        this.service.lock(searchParam);
+    }
+    @RequestMapping("/unlock")
+    @ResponseBody
+    public void unlock(@RequestBody Map<String,Object> map){
+        SearchParam searchParam = new SearchParam();
+        searchParam.setId(Integer.valueOf((String) map.get("id")));
+        this.service.unlock(searchParam);
     }
     @RequestMapping("/isExit")
     @ResponseBody

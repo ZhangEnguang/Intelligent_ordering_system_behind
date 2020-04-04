@@ -4,4 +4,7 @@
     <select id="list" resultType="com.tsc.iorder.domain.Root">
         select * from i_root where id != 3
     </select>
+    <select id="getList" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Root">
+        select * from i_root where id != 3 and rootName like '%${input}%'
+    </select>
 </mapper>
