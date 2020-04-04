@@ -14,4 +14,6 @@ public interface RootMapper {
     List<Root> list();
 
     List<Root> getList(SearchParam searchParam);
+
+    List<Root> listNoRoot();
 }

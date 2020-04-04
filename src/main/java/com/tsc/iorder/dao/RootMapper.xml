@@ -2,9 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tsc.iorder.dao.RootMapper">
     <select id="list" resultType="com.tsc.iorder.domain.Root">
-        select * from i_root where id != 3
+        select * from i_root
+    </select>
+    <select id="listNoRoot" resultType="com.tsc.iorder.domain.Root">
+         select * from i_root where id != 3
     </select>
     <select id="getList" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Root">
-        select * from i_root where id != 3 and rootName like '%${input}%'
+        select * from i_root where  rootName like '%${input}%'
     </select>
 </mapper>

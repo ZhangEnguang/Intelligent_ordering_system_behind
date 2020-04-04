@@ -19,4 +19,8 @@ public class RootService {
     public List<Root> getList(SearchParam searchParam) {
         return this.mapper.getList(searchParam);
     }
+
+    public List<Root> listNoRoot() {
+        return this.mapper.listNoRoot();
+    }
 }

@@ -28,6 +28,14 @@ public class RootController {
         map.put("list",list);
         return map;
     }
+    @RequestMapping("/listNoRoot")
+    @ResponseBody
+    public Map<String,Object> listNoRoot(){
+        Map<String,Object> map = new HashMap<>();
+        List<Root> list = this.service.listNoRoot();
+        map.put("list",list);
+        return map;
+    }
     @RequestMapping("/getList")
     @ResponseBody
     public Map<String,Object> getList(@RequestBody Map<String,Object> map){
