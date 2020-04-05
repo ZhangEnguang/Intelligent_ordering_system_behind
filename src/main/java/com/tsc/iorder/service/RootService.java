@@ -23,4 +23,27 @@ public class RootService {
     public List<Root> listNoRoot() {
         return this.mapper.listNoRoot();
     }
+
+    public Root findRootByRootName(String rootName) {
+        return this.mapper.findRootByRootName(rootName);
+    }
+
+    public boolean addRoot(String rootName) {
+        int i = this.mapper.addRoot(rootName);
+        return i!=0;
+    }
+
+    public Root findRootById(int id) {
+        return this.mapper.findRootById(id);
+    }
+
+    public boolean update(Root resRoot) {
+        int i = this.mapper.update(resRoot);
+        return i!=0;
+    }
+
+    public boolean delete(int id) {
+        int i = this.mapper.delete(id);
+        return i!=0;
+    }
 }

@@ -37,6 +37,9 @@
     <update id="unlock" parameterType="com.tsc.iorder.domain.SearchParam">
         update i_user set state = 1 where id = #{id}
     </update>
+    <update id="lockById" parameterType="int">
+        update i_user set state = 0,root = 5 where root = #{id}
+    </update>
     <delete id="delete" parameterType="com.tsc.iorder.domain.SearchParam">
         delete from i_user where id = #{id}
     </delete>

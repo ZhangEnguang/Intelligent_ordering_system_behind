@@ -36,4 +36,6 @@ public interface UserMapper {
     void lock(SearchParam searchParam);
 
     void unlock(SearchParam searchParam);
+
+    void lockById(int id);
 }

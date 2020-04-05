@@ -97,4 +97,8 @@ public class UserService {
     public void unlock(SearchParam searchParam) {
         this.mapper.unlock(searchParam);
     }
+
+    public void lockByRootId(int id) {
+        this.mapper.lockById(id);
+    }
 }

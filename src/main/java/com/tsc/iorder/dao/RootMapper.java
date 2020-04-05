@@ -16,4 +16,14 @@ public interface RootMapper {
     List<Root> getList(SearchParam searchParam);
 
     List<Root> listNoRoot();
+
+    Root findRootByRootName(String rootName);
+
+    int addRoot(String rootName);
+
+    Root findRootById(int id);
+
+    int update(Root resRoot);
+
+    int delete(int id);
 }

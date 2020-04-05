@@ -2,12 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tsc.iorder.dao.RootMapper">
     <select id="list" resultType="com.tsc.iorder.domain.Root">
-        select * from i_root
+        select * from i_root where rootName != '无'
     </select>
     <select id="listNoRoot" resultType="com.tsc.iorder.domain.Root">
-         select * from i_root where id != 3
+         select * from i_root where rootName != '无' and  id != 3
     </select>
     <select id="getList" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Root">
-        select * from i_root where  rootName like '%${input}%'
+        select * from i_root where rootName != '无' and rootName like '%${input}%'
     </select>
+    <select id="findRootByRootName" parameterType="string" resultType="com.tsc.iorder.domain.Root">
+        select * from i_root where  rootName = #{rootName}
+    </select>
+    <select id="findRootById" parameterType="int" resultType="com.tsc.iorder.domain.Root">
+        select * from i_root where id = #{id}
+    </select>
+    <insert id="addRoot" parameterType="string">
+        insert into i_root(rootName) values (#{rootName})
+    </insert>
+    <update id="update" parameterType="com.tsc.iorder.domain.Root">
+        update i_root set rootName = #{rootName} where id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from i_root where id = #{id}
+    </delete>
 </mapper>
