@@ -3,8 +3,8 @@ package com.tsc.iorder.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tsc.iorder.domain.FoodType;
-import com.tsc.iorder.domain.Root;
 import com.tsc.iorder.domain.SearchParam;
+import com.tsc.iorder.service.FoodService;
 import com.tsc.iorder.service.FoodTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +21,8 @@ import java.util.Map;
 public class FoodTypeController {
     @Autowired
     private FoodTypeService service;
+    @Autowired
+    private FoodService foodService;
     @RequestMapping("/getList")
     @ResponseBody
     public Map<String,Object> getList(@RequestBody Map<String,Object> map){
@@ -31,6 +33,14 @@ public class FoodTypeController {
         PageInfo<FoodType> pageInfo = new PageInfo<>(list);
         resMap.put("page",pageInfo);
         return resMap;
+    }
+    @RequestMapping("/list")
+    @ResponseBody
+    public Map<String,Object> list(){
+        Map<String,Object> map = new HashMap<>();
+        List<FoodType> list = this.service.list();
+        map.put("list",list);
+        return map;
     }
     @RequestMapping("/addType")
     @ResponseBody
@@ -57,7 +67,7 @@ public class FoodTypeController {
     @RequestMapping("/delete")
     @ResponseBody
     public boolean delete(@RequestBody Map<String,Object> map){
-        //this.foodService.lockByTypeId((int)map.get("id"));
+        this.foodService.lockByTypeId((int)map.get("id"));
         return this.service.delete((int)map.get("id"));
     }
 }

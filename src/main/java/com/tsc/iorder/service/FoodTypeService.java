@@ -38,4 +38,8 @@ public class FoodTypeService {
         int i = this.mapper.delete(id);
         return i!=0;
     }
+
+    public List<FoodType> list() {
+        return this.mapper.list();
+    }
 }

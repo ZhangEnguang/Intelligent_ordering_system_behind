@@ -8,6 +8,7 @@ public class SearchParam {
     private int event;
     private int id;
     private String input;
+    private double discount;
 
     public SearchParam() {
     }
@@ -54,5 +55,13 @@ public class SearchParam {
 
     public void setInput(String input) {
         this.input = input;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 }

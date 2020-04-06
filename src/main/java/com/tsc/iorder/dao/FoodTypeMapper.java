@@ -21,4 +21,6 @@ public interface FoodTypeMapper {
     int update(FoodType resType);
 
     int delete(int id);
+
+    List<FoodType> list();
 }
