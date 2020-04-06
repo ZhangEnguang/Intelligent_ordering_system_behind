@@ -60,7 +60,7 @@ public class UserController {
     @ResponseBody
     public boolean upload(@RequestParam("file") MultipartFile file,User user) throws IOException {
         List<User> users = this.service.findUsers(user.getUsername());
-        if (users!=null){
+        if (users!=null&&users.size()!=0){
             return false;
         }
         String fileName = FileUtil.saveFile(file, urlUser);

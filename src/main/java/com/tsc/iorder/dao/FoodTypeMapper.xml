@@ -1,0 +1,21 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsc.iorder.dao.FoodTypeMapper">
+    <select id="getList" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.FoodType">
+        select * from i_foodType where typeName != '无' and typeName like '%${input}%'
+    </select>
+    <select id="findTypeByTypeName" parameterType="string" resultType="com.tsc.iorder.domain.FoodType">
+        select * from i_foodType where typeName = #{typeName}
+    </select>
+    <select id="findFoodTypeById" parameterType="int" resultType="com.tsc.iorder.domain.FoodType">
+        select * from i_foodType where id = #{id}
+    </select>
+    <insert id="addType" parameterType="string">
+        insert into i_foodType(typeName) values (#{typeName})
+    </insert>
+    <update id="update" parameterType="com.tsc.iorder.domain.FoodType">
+        update i_foodType set typeName = #{typeName} where id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from i_foodType where id = #{id}
+    </delete>
+</mapper>

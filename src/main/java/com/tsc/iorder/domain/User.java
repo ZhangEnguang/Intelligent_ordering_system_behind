@@ -1,5 +1,7 @@
 package com.tsc.iorder.domain;
 
+import java.math.BigDecimal;
+
 public class User {
     private String id;
     private String username;
@@ -10,8 +12,11 @@ public class User {
     private String rootName;
     private String date;
     private int state;
+    private double serviceTimes;
+    private double serviceGrade;
+    private double rate;
 
-    public User(String id, String username, String password, int root, String img, String name, String rootName, String date, int state) {
+    public User(String id, String username, String password, int root, String img, String name, String rootName, String date, int state, double serviceTimes, double serviceGrade) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -21,9 +26,12 @@ public class User {
         this.rootName = rootName;
         this.date = date;
         this.state = state;
+        this.serviceTimes = serviceTimes;
+        this.serviceGrade = serviceGrade;
+        this.rate = this.formatDouble(serviceGrade/serviceTimes);
     }
 
-    public User(String username, String password, int root, String img, String name, String rootName, String date, int state) {
+    public User(String username, String password, int root, String img, String name, String rootName, String date, int state, double serviceTimes, double serviceGrade) {
         this.username = username;
         this.password = password;
         this.root = root;
@@ -32,6 +40,9 @@ public class User {
         this.rootName = rootName;
         this.date = date;
         this.state = state;
+        this.serviceTimes = serviceTimes;
+        this.serviceGrade = serviceGrade;
+        this.rate = this.formatDouble(serviceGrade/serviceTimes);
     }
 
     public User() {
@@ -109,6 +120,40 @@ public class User {
         this.state = state;
     }
 
+    public double getServiceTimes() {
+        return serviceTimes;
+    }
+
+    public void setServiceTimes(double serviceTimes) {
+        this.serviceTimes = serviceTimes;
+    }
+
+    public double getserviceGrade() {
+        return serviceGrade;
+    }
+
+    public void setserviceGrade(double serviceGrade) {
+        this.serviceGrade = serviceGrade;
+    }
+
+    public double getRate() {
+        Double rate = null;
+        if (this.serviceGrade!=0&&this.serviceTimes!=0){
+            rate = this.formatDouble(this.serviceGrade / this.serviceTimes);
+        }else {
+            rate = 0.0;
+        }
+        return rate;
+    }
+
+    public void setRate(double serviceGrade,double serviceTimes) {
+        this.rate = this.formatDouble(serviceGrade/serviceTimes);
+    }
+    private Double formatDouble(Double d){
+        BigDecimal b   =   new   BigDecimal(d);
+        double   result   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
+        return result;
+    }
     @Override
     public String toString() {
         return "User{" +
@@ -121,6 +166,9 @@ public class User {
                 ", rootName='" + rootName + '\'' +
                 ", date='" + date + '\'' +
                 ", state=" + state +
+                ", serviceTimes=" + serviceTimes +
+                ", serviceGrade=" + serviceGrade +
+                ", rate=" + rate +
                 '}';
     }
 }
