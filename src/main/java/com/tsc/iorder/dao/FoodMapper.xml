@@ -3,6 +3,18 @@
     <select id="list" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Food">
         select f.*,t.typeName from i_food f,i_foodtype t where f.typeid = t.id and concat(f.foodName,f.description,t.typeName) like '%${input}%'
     </select>
+    <select id="findByFoodName" parameterType="string" resultType="com.tsc.iorder.domain.Food">
+        select f.*,t.typeName from i_food f,i_foodtype t where f.typeid = t.id and f.foodName = #{foodName}
+    </select>
+    <select id="findById" parameterType="int" resultType="com.tsc.iorder.domain.Food">
+        select f.*,t.typeName from i_food f,i_foodtype t where f.typeid = t.id and f.id = #{id}
+    </select>
+    <select id="findByImg" parameterType="string" resultType="com.tsc.iorder.domain.Food">
+        select f.*,t.typeName from i_food f,i_foodtype t where f.typeid = t.id and f.img = #{img}
+    </select>
+    <insert id="addFood" parameterType="com.tsc.iorder.domain.Food">
+        insert into i_food(foodName,img,typeid,price,description) values (#{foodName},#{img},#{typeid},#{price},#{description})
+    </insert>
     <update id="lockByTypeId" parameterType="int">
         update i_food set state = 0,typeid = 5 where typeid = #{id}
     </update>
@@ -21,4 +33,10 @@
     <update id="updateDiscount" parameterType="com.tsc.iorder.domain.SearchParam">
         update i_food set discount = #{discount} where id = #{id}
     </update>
+    <update id="update" parameterType="com.tsc.iorder.domain.Food">
+        update i_food set foodName = #{foodName},img = #{img},typeid = #{typeid},price = #{price},description = #{description} where id = #{id}
+    </update>
+    <delete id="delete" parameterType="com.tsc.iorder.domain.SearchParam">
+        delete from i_food where id = #{id}
+    </delete>
 </mapper>

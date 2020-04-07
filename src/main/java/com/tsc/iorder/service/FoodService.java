@@ -40,4 +40,31 @@ public class FoodService {
     public void updateDiscount(SearchParam searchParam) {
         this.mapper.updateDiscount(searchParam);
     }
+
+    public Food findByFoodName(String foodName) {
+        return this.mapper.findByFoodName(foodName);
+    }
+
+    public boolean addFood(Food food) {
+        int i = this.mapper.addFood(food);
+        return i!=0;
+    }
+
+    public Food findById(int id) {
+        return this.mapper.findById(id);
+    }
+
+    public List<Food> findByImg(String img) {
+        return this.mapper.findByImg(img);
+    }
+
+    public boolean update(Food food) {
+        int i = this.mapper.update(food);
+        return i!=0;
+    }
+
+    public boolean delete(SearchParam searchParam) {
+        int i = this.mapper.delete(searchParam);
+        return i!=0;
+    }
 }

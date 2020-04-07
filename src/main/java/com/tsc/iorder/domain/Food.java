@@ -94,6 +94,9 @@ public class Food {
     }
 
     public String getDescription() {
+        if (description==null||description.equals("")){
+            return  "暂无描述";
+        }
         return description;
     }
 

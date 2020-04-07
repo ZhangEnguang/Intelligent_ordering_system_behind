@@ -83,17 +83,15 @@ public class UserController {
                 return false;
             }
         }
-        Map<String, Object> resMap = this.service.findUser(String.valueOf(user.getId()));
-        User u = (User) resMap.get("user");
-        String[] img = u.getImg().split("/");
+        String[] img = resUser.getImg().split("/");
         File dir = new File(urlUser);
         String fileName = img[img.length-1];
-        if (!u.getImg().equals(dbUser+file.getOriginalFilename())){
+        if (!resUser.getImg().equals(dbUser+file.getOriginalFilename())){
             fileName = FileUtil.saveFile(file, urlUser);
         }
         user.setImg(dbUser+fileName);
         boolean b = this.service.update(user);
-        List<User> list = this.service.findImg(u.getImg());
+        List<User> list = this.service.findImg(resUser.getImg());
         if (list==null||list.size()==0){
             FileUtil.deleteFile(dir,img[img.length-1]);
         }

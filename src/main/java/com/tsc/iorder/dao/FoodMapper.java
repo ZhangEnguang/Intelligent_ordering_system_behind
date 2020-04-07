@@ -23,4 +23,16 @@ public interface FoodMapper {
     void unShow(SearchParam searchParam);
 
     void updateDiscount(SearchParam searchParam);
+
+    Food findByFoodName(String foodName);
+
+    int addFood(Food food);
+
+    Food findById(int id);
+
+    List<Food> findByImg(String img);
+
+    int update(Food food);
+
+    int delete(SearchParam searchParam);
 }
