@@ -67,4 +67,8 @@ public class FoodService {
         int i = this.mapper.delete(searchParam);
         return i!=0;
     }
+
+    public List<Food> searchOne(SearchParam searchParam) {
+        return this.mapper.searchOne(searchParam);
+    }
 }

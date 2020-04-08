@@ -9,6 +9,7 @@ public class SearchParam {
     private int id;
     private String input;
     private double discount;
+    private int typeid;
 
     public SearchParam() {
     }
@@ -63,5 +64,13 @@ public class SearchParam {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public int getTypeid() {
+        return typeid;
+    }
+
+    public void setTypeid(int typeid) {
+        this.typeid = typeid;
     }
 }

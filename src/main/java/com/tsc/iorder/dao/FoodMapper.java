@@ -35,4 +35,6 @@ public interface FoodMapper {
     int update(Food food);
 
     int delete(SearchParam searchParam);
+
+    List<Food> searchOne(SearchParam searchParam);
 }

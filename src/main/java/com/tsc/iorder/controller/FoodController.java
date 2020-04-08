@@ -148,4 +148,20 @@ public class FoodController {
         }
         return this.service.delete(searchParam);
     }
+    @RequestMapping("/searchOne")
+    @ResponseBody
+    public Map<String,Object> searchOne(@RequestBody Map<String,Object> map){
+        Map<String,Object> resMap = new HashMap<>();
+        SearchParam searchParam = new SearchParam(map);
+        if (map.get("typeid").equals("")||map.get("typeid") == null){
+            searchParam.setTypeid(0);
+        }else {
+            searchParam.setTypeid((Integer) map.get("typeid"));
+        }
+        PageHelper.startPage(searchParam.getStart(),searchParam.getPageSize());
+        List<Food> list = this.service.searchOne(searchParam);
+        PageInfo<Food> pageInfo = new PageInfo<>(list);
+        resMap.put("page",pageInfo);
+        return resMap;
+    }
 }
