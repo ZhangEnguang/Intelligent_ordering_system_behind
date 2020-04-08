@@ -13,9 +13,11 @@ public class Food {
     private int isDiscount;
     private double discount;
     private double discountPrice;
+    private int moduleid;
+    private String moduleName;
     private int state;
 
-    public Food(int id, String foodName, String img, int typeid, String typeName, double price, String description, int isDiscount, double discount,  int state) {
+    public Food(int id, String foodName, String img, int typeid, String typeName, double price, String description, int isDiscount, double discount,  int state,int moduleid,String moduleName) {
         this.id = id;
         this.foodName = foodName;
         this.img = img;
@@ -27,9 +29,11 @@ public class Food {
         this.discount = discount;
         this.discountPrice = this.formatDouble(price*(discount/10));
         this.state = state;
+        this.moduleid = moduleid;
+        this.moduleName = moduleName;
     }
 
-    public Food(String foodName, String img, int typeid, String typeName, double price, String description, int isDiscount, double discount, int state) {
+    public Food(String foodName, String img, int typeid, String typeName, double price, String description, int isDiscount, double discount, int state,int moduleid,String moduleName) {
         this.foodName = foodName;
         this.img = img;
         this.typeid = typeid;
@@ -40,6 +44,8 @@ public class Food {
         this.discount = discount;
         this.discountPrice = this.formatDouble(price*(discount/10));
         this.state = state;
+        this.moduleid = moduleid;
+        this.moduleName = moduleName;
     }
 
     public Food() {
@@ -147,6 +153,22 @@ public class Food {
         return result;
     }
 
+    public int getModuleid() {
+        return moduleid;
+    }
+
+    public void setModuleid(int moduleid) {
+        this.moduleid = moduleid;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
     @Override
     public String toString() {
         return "Food{" +
@@ -160,6 +182,8 @@ public class Food {
                 ", isDiscount=" + isDiscount +
                 ", discount=" + discount +
                 ", discountPrice=" + discountPrice +
+                ", moduleid=" + moduleid +
+                ", moduleName='" + moduleName + '\'' +
                 ", state=" + state +
                 '}';
     }
