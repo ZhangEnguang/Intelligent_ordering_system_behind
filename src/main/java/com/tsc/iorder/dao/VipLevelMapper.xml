@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsc.iorder.dao.VipLevelMapper">
+    <select id="list" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.VipLevel">
+        select * from i_vip_level where levelName like '%${input}%'
+    </select>
+    <select id="findById" parameterType="int" resultType="com.tsc.iorder.domain.VipLevel">
+        select * from i_vip_level where id = #{id}
+    </select>
+    <select id="findDiscountMax" parameterType="java.lang.Double" resultType="java.lang.Double">
+        select IFNULL(min(l.discountNum),10) maxCount from `i_vip_level` l where discountNum>#{discountNum}
+    </select>
+    <select id="findDiscountMin" parameterType="java.lang.Double" resultType="java.lang.Double">
+        select IFNULL(MAX(l.discountNum),0) minCount from `i_vip_level` l where discountNum&lt;#{discountNum}
+    </select>
+    <select id="findMinMin" parameterType="java.lang.Double" resultType="java.lang.Double">
+        select IFNULL(MAX(l.maxNum),100) minCount from `i_vip_level` l where l.maxNum&lt;=#{minNum}
+    </select>
+    <select id="findMinMax" parameterType="java.lang.Double" resultType="java.lang.Double">
+        select min(l.maxNum) maxCount from `i_vip_level` l where l.maxNum>#{minNum}
+    </select>
+    <select id="findMaxMin" parameterType="java.lang.Double" resultType="java.lang.Double">
+        select MAX(l.minNum) minCount from `i_vip_level` l where l.minNum&lt;#{maxNum}
+    </select>
+    <select id="findMaxMax" parameterType="java.lang.Double" resultType="java.lang.Double">
+        select IFNULL(MIN(l.minNum),99999999) maxCount from `i_vip_level` l where l.minNum>=#{maxNum}
+    </select>
+</mapper>
