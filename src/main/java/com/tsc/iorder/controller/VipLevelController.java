@@ -40,4 +40,39 @@ public class VipLevelController {
         resMap.put("discountMap",discountMap);
         return resMap;
     }
+    @RequestMapping("/update")
+    @ResponseBody
+    public boolean update(@RequestBody Map<String,VipLevel> map){
+        VipLevel vipLevel = this.service.findByName(map.get("vipLevel").getLevelName());
+        VipLevel byId = this.service.findById(map.get("vipLevel").getId());
+        if (!map.get("vipLevel").getLevelName().equals(byId.getLevelName())){
+            if (vipLevel!=null){
+                return false;
+            }
+        }
+        return this.service.update(map.get("vipLevel"));
+    }
+    @RequestMapping("/checkAdd")
+    @ResponseBody
+    public Map<String,Object> checkAdd(){
+        Map<String,Object> resMap = new HashMap<>();
+        Map<String,Double> discountMap = this.service.checkAdd();
+        resMap.put("discountMap",discountMap);
+        return resMap;
+    }
+    @RequestMapping("/addVipLevel")
+    @ResponseBody
+    public boolean addVipLevel(@RequestBody Map<String,VipLevel> map){
+        VipLevel vipLevel = map.get("vipLevel");
+        VipLevel v = this.service.findByName(vipLevel.getLevelName());
+        if (v!=null){
+            return false;
+        }
+        return this.service.addVipLevel(vipLevel);
+    }
+    @RequestMapping("/delete")
+    @ResponseBody
+    public boolean delete(@RequestBody Map<String,Object> map){
+        return this.service.delete((int)map.get("id"));
+    }
 }

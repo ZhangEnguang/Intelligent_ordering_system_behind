@@ -23,6 +23,33 @@
         select MAX(l.minNum) minCount from `i_vip_level` l where l.minNum&lt;#{maxNum}
     </select>
     <select id="findMaxMax" parameterType="java.lang.Double" resultType="java.lang.Double">
-        select IFNULL(MIN(l.minNum),99999999) maxCount from `i_vip_level` l where l.minNum>=#{maxNum}
+        select IFNULL(MIN(l.minNum),99999999.9) maxCount from `i_vip_level` l where l.minNum>=#{maxNum}
     </select>
+    <select id="checkDiscountMax" resultType="java.lang.Double">
+        select IFNULL(MIN(discountNum),10) from i_vip_level
+    </select>
+    <select id="checkDiscountMin" resultType="com.tsc.iorder.domain.VipLevel">
+        select * from i_vip_level where discountNum = 0.1
+    </select>
+    <select id="checkMinMin" resultType="java.lang.Double">
+        select IFNULL(MAX(maxNum),100) from i_vip_level
+    </select>
+    <select id="checkMinMax" resultType="com.tsc.iorder.domain.VipLevel">
+        select * from i_vip_level where minNum = 99999999.9
+    </select>
+    <select id="checkMaxMax" resultType="com.tsc.iorder.domain.VipLevel">
+        select * from i_vip_level where maxNum = 99999999.9
+    </select>
+    <select id="findByName" parameterType="string" resultType="com.tsc.iorder.domain.VipLevel">
+        select * from i_vip_level where levelName = #{levelName}
+    </select>
+    <update id="update" parameterType="com.tsc.iorder.domain.VipLevel">
+        update i_vip_level set minNum = #{minNum},maxNum = #{maxNum},levelName = #{levelName},discountNum = #{discountNum} where id = #{id}
+    </update>
+    <insert id="addVipLevel" parameterType="com.tsc.iorder.domain.VipLevel">
+        insert into i_vip_level(minNum,maxNum,levelName,discountNum) values(#{minNum},#{maxNum},#{levelName},#{discountNum})
+    </insert>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from i_vip_level where id = #{id}
+    </delete>
 </mapper>

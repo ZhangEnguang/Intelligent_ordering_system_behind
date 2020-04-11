@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 @Component("vipLevelMapper")
@@ -26,4 +25,22 @@ public interface VipLevelMapper {
     Double findMaxMin(double maxNum);
 
     Double findMaxMax(double maxNum);
+
+    int update(VipLevel vipLevel);
+
+    Double checkDiscountMax();
+
+    VipLevel checkDiscountMin();
+
+    Double checkMinMin();
+
+    VipLevel checkMinMax();
+
+    VipLevel checkMaxMax();
+
+    int addVipLevel(VipLevel vipLevel);
+
+    int delete(int id);
+
+    VipLevel findByName(String levelName);
 }

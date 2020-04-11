@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsc.iorder.dao.VipMapper">
+    <insert id="addVip" parameterType="com.tsc.iorder.domain.Vip">
+        insert into i_vip(name,phone) values (#{name},#{phone})
+    </insert>
+    <select id="findByPhone" parameterType="string" resultType="com.tsc.iorder.domain.Vip">
+        select * from i_vip where phone = #{phone}
+    </select>
+    <update id="recharge" parameterType="com.tsc.iorder.domain.Vip">
+        update i_vip set money = money+#{money},buyNum = buyNum+#{money} where phone = #{phone}
+    </update>
+    <select id="list" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Vip">
+        select *
+        from
+        (select v.*,IFNULL(l.levelName,'暂无级别') levelName,IFNULL(l.discountNum,0.0) discountNum
+        from `i_vip` v
+        left join i_vip_level l
+        on v.buyNum >= l.minNum
+        and v.buyNum &lt; l.maxNum) s
+        where concat(s.name,s.phone,s.levelName) like '%${input}%'
+    </select>
+    <update id="updateState" parameterType="com.tsc.iorder.domain.SearchParam">
+        update i_vip set state = #{event} where id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from i_vip where id = #{id}
+    </delete>
+</mapper>
