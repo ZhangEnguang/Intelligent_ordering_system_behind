@@ -71,4 +71,20 @@ public class FoodService {
     public List<Food> searchOne(SearchParam searchParam) {
         return this.mapper.searchOne(searchParam);
     }
+
+    public List<Food> searchDiscount(SearchParam searchParam) {
+        return this.mapper.searchDiscount(searchParam);
+    }
+
+    public List<Food> searchGraceful(SearchParam searchParam) {
+        return this.mapper.searchGraceful(searchParam);
+    }
+
+    public List<Food> searchDrink(SearchParam searchParam) {
+        return this.mapper.searchDrink(searchParam);
+    }
+
+    public List<Food> searchSweet(SearchParam searchParam) {
+        return this.mapper.searchSweet(searchParam);
+    }
 }

@@ -148,7 +148,7 @@ public class FoodController {
         }
         return this.service.delete(searchParam);
     }
-    @RequestMapping("/searchOne")
+    @RequestMapping("/searchFood")
     @ResponseBody
     public Map<String,Object> searchOne(@RequestBody Map<String,Object> map){
         Map<String,Object> resMap = new HashMap<>();
@@ -159,7 +159,19 @@ public class FoodController {
             searchParam.setTypeid((Integer) map.get("typeid"));
         }
         PageHelper.startPage(searchParam.getStart(),searchParam.getPageSize());
-        List<Food> list = this.service.searchOne(searchParam);
+        List<Food> list = null;
+        if ((Integer) map.get("sid") == 1){
+            list = this.service.searchOne(searchParam);
+        }else if((Integer) map.get("sid") == 2){
+            list = this.service.searchDrink(searchParam);
+        }else if((Integer) map.get("sid") == 3){
+            list = this.service.searchGraceful(searchParam);
+        }else if((Integer) map.get("sid") == 4){
+            list = this.service.searchSweet(searchParam);
+        }else {
+            list = this.service.searchDiscount(searchParam);
+        }
+
         PageInfo<Food> pageInfo = new PageInfo<>(list);
         resMap.put("page",pageInfo);
         return resMap;

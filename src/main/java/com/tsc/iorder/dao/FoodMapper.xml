@@ -24,6 +24,53 @@
              and f.typeid = #{typeid}
          </if>
     </select>
+    <select id="searchGraceful" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Food">
+        select f.*,t.typeName,m.moduleName from
+        i_food f,i_foodtype t,i_module m
+        where f.typeid = t.id
+        and f.moduleid = m.id
+        and f.state = 1
+        and f.moduleid = 3
+        and f.foodName like '%${input}%'
+        <if test="typeid!=0">
+            and f.typeid = #{typeid}
+        </if>
+    </select>
+    <select id="searchDrink" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Food">
+        select f.*,t.typeName,m.moduleName from
+        i_food f,i_foodtype t,i_module m
+        where f.typeid = t.id
+        and f.moduleid = m.id
+        and f.state = 1
+        and f.moduleid = 2
+        and f.foodName like '%${input}%'
+        <if test="typeid!=0">
+            and f.typeid = #{typeid}
+        </if>
+    </select>
+    <select id="searchSweet" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Food">
+        select f.*,t.typeName,m.moduleName from
+        i_food f,i_foodtype t,i_module m
+        where f.typeid = t.id
+        and f.moduleid = m.id
+        and f.state = 1
+        and f.moduleid = 4
+        and f.foodName like '%${input}%'
+        <if test="typeid!=0">
+            and f.typeid = #{typeid}
+        </if>
+    </select>
+    <select id="searchDiscount" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Food">
+        select f.*,t.typeName from
+        i_food f,i_foodtype t
+        where f.typeid = t.id
+        and f.state = 1
+        and f.isDiscount = 1
+        and f.foodName like '%${input}%'
+        <if test="typeid!=0">
+            and f.typeid = #{typeid}
+        </if>
+    </select>
     <insert id="addFood" parameterType="com.tsc.iorder.domain.Food">
         insert into i_food(foodName,img,typeid,moduleid,price,description) values (#{foodName},#{img},#{typeid},#{moduleid},#{price},#{description})
     </insert>

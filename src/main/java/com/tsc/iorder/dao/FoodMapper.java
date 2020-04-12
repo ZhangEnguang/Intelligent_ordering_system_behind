@@ -37,4 +37,12 @@ public interface FoodMapper {
     int delete(SearchParam searchParam);
 
     List<Food> searchOne(SearchParam searchParam);
+
+    List<Food> searchDiscount(SearchParam searchParam);
+
+    List<Food> searchGraceful(SearchParam searchParam);
+
+    List<Food> searchDrink(SearchParam searchParam);
+
+    List<Food> searchSweet(SearchParam searchParam);
 }
