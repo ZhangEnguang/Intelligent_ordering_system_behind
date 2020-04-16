@@ -101,4 +101,8 @@ public class UserService {
     public void lockByRootId(int id) {
         this.mapper.lockById(id);
     }
+
+    public void updateRate(User user) {
+        this.mapper.updateRate(user);
+    }
 }

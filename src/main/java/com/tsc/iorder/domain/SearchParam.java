@@ -10,13 +10,17 @@ public class SearchParam {
     private String input;
     private double discount;
     private int typeid;
+    private String startTime;
+    private String endTime;
 
     public SearchParam() {
     }
     public SearchParam(Map<String,Object> params){
         this.start = (int) params.get("start");
         this.pageSize = (int) params.get("pageSize");
-        this.input = (String) params.get("input");
+        if (params.get("input")!=null){
+            this.input = (String) params.get("input");
+        }
     }
     public int getStart() {
         return start;
@@ -72,5 +76,21 @@ public class SearchParam {
 
     public void setTypeid(int typeid) {
         this.typeid = typeid;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

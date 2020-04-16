@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsc.iorder.dao.OrderitemMapper">
+    <insert id="saveItem" parameterType="com.tsc.iorder.domain.Orderitem">
+        insert into i_orderitem(oid,fid,count,total) values (#{oid},#{fid},#{count},#{total})
+    </insert>
+    <delete id="delete" parameterType="string">
+        delete from i_orderitem where oid = #{oid}
+    </delete>
+</mapper>

@@ -38,4 +38,6 @@ public interface UserMapper {
     void unlock(SearchParam searchParam);
 
     void lockById(int id);
+
+    void updateRate(User user);
 }

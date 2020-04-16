@@ -5,7 +5,13 @@
         insert into i_vip(name,phone) values (#{name},#{phone})
     </insert>
     <select id="findByPhone" parameterType="string" resultType="com.tsc.iorder.domain.Vip">
-        select * from i_vip where phone = #{phone}
+        select *
+        from
+        (select v.*,IFNULL(l.levelName,'暂无级别') levelName,IFNULL(l.discountNum,0.0) discountNum
+        from `i_vip` v
+        left join i_vip_level l
+        on v.buyNum >= l.minNum
+        and v.buyNum &lt; l.maxNum) s where s.phone = #{phone}
     </select>
     <update id="recharge" parameterType="com.tsc.iorder.domain.Vip">
         update i_vip set money = money+#{money},buyNum = buyNum+#{money} where phone = #{phone}
@@ -22,6 +28,9 @@
     </select>
     <update id="updateState" parameterType="com.tsc.iorder.domain.SearchParam">
         update i_vip set state = #{event} where id = #{id}
+    </update>
+    <update id="updateMoney" parameterType="com.tsc.iorder.domain.Vip">
+        update i_vip set money = money - #{money} where id = #{id}
     </update>
     <delete id="delete" parameterType="int">
         delete from i_vip where id = #{id}

@@ -42,15 +42,20 @@ public class VipController {
     }
     @RequestMapping("/recharge")
     @ResponseBody
-    public boolean recharge(@RequestBody Map<String,Object> map){
+    public Map<String,Object> recharge(@RequestBody Map<String,Object> map){
+        Map<String,Object> resMap = new HashMap<>();
         Vip vip = this.service.findByPhone((String)map.get("phone"));
         if (!vip.getName().equals(map.get("name"))){
-            return false;
+            resMap.put("isVip",false);
+            return resMap;
         }
         Vip v = new Vip();
         v.setPhone((String) map.get("phone"));
         v.setMoney(Double.valueOf((String) map.get("money")));
-        return this.service.recharge(v);
+        resMap.put("isVip",this.service.recharge(v));
+        Vip byPhone = this.service.findByPhone((String) map.get("phone"));
+        resMap.put("vip",byPhone);
+        return resMap;
     }
     @RequestMapping("/list")
     @ResponseBody

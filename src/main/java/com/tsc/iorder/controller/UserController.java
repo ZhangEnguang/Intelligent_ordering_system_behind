@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tsc.iorder.domain.SearchParam;
 import com.tsc.iorder.domain.User;
+import com.tsc.iorder.domain.Vip;
 import com.tsc.iorder.service.UserService;
+import com.tsc.iorder.service.VipService;
 import com.tsc.iorder.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService service;
+    @Autowired
+    private VipService vipService;
     public static String urlUser = "F:/ideaFile/Intelligent_ordering_system/IntelligentOrderingSystem/static/images/user";
     public static String dbUser = "/static/images/user/";
     @RequestMapping("/findUser")
@@ -177,5 +181,21 @@ public class UserController {
                 return true;
             }
         }
+    }
+    @RequestMapping("/updateRate")
+    @ResponseBody
+    public Map<String,Object> updateRate(@RequestBody Map<String,Object> map){
+        String phone = (String) map.get("phone");
+        Map<String,Object> resMap = new HashMap<>();
+        Vip byPhone = null;
+        if (phone!=null&&!phone.equals("")){
+            byPhone = this.vipService.findByPhone(phone);
+        }
+        resMap.put("vip",byPhone);
+        User user = new User();
+        user.setId((String) map.get("uid"));
+        user.setserviceGrade(Double.valueOf((String) map.get("value")));
+        this.service.updateRate(user);
+        return resMap;
     }
 }

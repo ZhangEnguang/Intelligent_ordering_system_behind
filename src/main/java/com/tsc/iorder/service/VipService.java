@@ -39,4 +39,8 @@ public class VipService {
         int i = this.mapper.delete(id);
         return i!=0;
     }
+
+    public void updateMoney(Vip byPhone) {
+        this.mapper.updateMoney(byPhone);
+    }
 }

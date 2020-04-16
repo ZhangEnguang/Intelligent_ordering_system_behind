@@ -40,6 +40,9 @@
     <update id="lockById" parameterType="int">
         update i_user set state = 0,root = 5 where root = #{id}
     </update>
+    <update id="updateRate" parameterType="com.tsc.iorder.domain.User">
+        update i_user set serviceTimes = serviceTimes+1,serviceGrade = serviceGrade+#{serviceGrade} where id = #{id}
+    </update>
     <delete id="delete" parameterType="com.tsc.iorder.domain.SearchParam">
         delete from i_user where id = #{id}
     </delete>

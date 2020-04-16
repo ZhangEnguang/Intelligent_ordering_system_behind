@@ -21,4 +21,6 @@ public interface VipMapper {
     void updateState(SearchParam searchParam);
 
     int delete(Integer id);
+
+    void updateMoney(Vip byPhone);
 }
