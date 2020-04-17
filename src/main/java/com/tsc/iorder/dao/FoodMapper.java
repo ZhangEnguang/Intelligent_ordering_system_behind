@@ -45,4 +45,6 @@ public interface FoodMapper {
     List<Food> searchDrink(SearchParam searchParam);
 
     List<Food> searchSweet(SearchParam searchParam);
+
+    List<String> selectFood();
 }

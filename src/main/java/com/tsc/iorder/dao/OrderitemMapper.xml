@@ -7,4 +7,51 @@
     <delete id="delete" parameterType="string">
         delete from i_orderitem where oid = #{oid}
     </delete>
+    <select id="selectCount" parameterType="com.tsc.iorder.domain.SearchParam" resultType="int">
+        SELECT SUM(i.count)
+        FROM i_orderitem i,i_order o,i_food f
+        WHERE i.oid = o.oid
+        AND i.fid = f.id
+        AND f.foodName = #{foodName}
+        AND o.ordertime >=#{startTime}
+        AND o.ordertime &lt;=#{endTime}
+        GROUP BY f.foodName
+    </select>
+    <select id="selectMoney" parameterType="com.tsc.iorder.domain.SearchParam" resultType="double">
+        SELECT SUM(i.total)
+        FROM i_orderitem i,i_order o,i_food f
+        WHERE i.oid = o.oid
+        AND i.fid = f.id
+        AND f.foodName = #{foodName}
+        AND o.ordertime >=#{startTime}
+        AND o.ordertime &lt;=#{endTime}
+        GROUP BY f.foodName
+    </select>
+    <select id="selectCountCount" parameterType="com.tsc.iorder.domain.SearchParam" resultType="int">
+        SELECT SUM(i.count)
+        FROM i_orderitem i,i_order o,i_food f
+        WHERE i.oid = o.oid
+        AND i.fid = f.id
+        AND o.ordertime >=#{startTime}
+        AND o.ordertime &lt;=#{endTime}
+    </select>
+    <select id="selectMoneyCount" parameterType="com.tsc.iorder.domain.SearchParam" resultType="double">
+        SELECT SUM(i.total)
+        FROM i_orderitem i,i_order o,i_food f
+        WHERE i.oid = o.oid
+        AND i.fid = f.id
+        AND o.ordertime >=#{startTime}
+        AND o.ordertime &lt;=#{endTime}
+    </select>
+    <select id="selectPieData" parameterType="com.tsc.iorder.domain.SearchParam" resultType="double">
+        SELECT SUM(i.total) money
+        FROM i_orderitem i,i_order o,i_food f,i_foodtype t
+        WHERE i.oid = o.oid
+        AND i.fid = f.id
+        AND f.typeid = t.id
+        AND t.typeName = #{typeName}
+        AND o.ordertime >=#{startTime}
+        AND o.ordertime &lt;=#{endTime}
+        GROUP BY t.typeName
+    </select>
 </mapper>

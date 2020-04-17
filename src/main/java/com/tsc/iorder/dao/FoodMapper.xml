@@ -98,4 +98,7 @@
     <delete id="delete" parameterType="com.tsc.iorder.domain.SearchParam">
         delete from i_food where id = #{id}
     </delete>
+    <select id="selectFood"  resultType="string">
+        select foodName from i_food
+    </select>
 </mapper>

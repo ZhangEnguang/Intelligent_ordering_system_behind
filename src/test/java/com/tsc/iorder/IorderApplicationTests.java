@@ -1,7 +1,7 @@
 package com.tsc.iorder;
 
-import com.tsc.iorder.domain.User;
 import com.tsc.iorder.service.UserService;
+import com.tsc.iorder.util.UUID16;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,8 @@ public class IorderApplicationTests {
     UserService userService;
     @Test
     public void contextLoads() {
-
+        String uuid8 = UUID16.getUUID16();
+        System.out.println(uuid8);
     }
 
 }

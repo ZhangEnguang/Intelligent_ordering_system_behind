@@ -87,4 +87,8 @@ public class FoodService {
     public List<Food> searchSweet(SearchParam searchParam) {
         return this.mapper.searchSweet(searchParam);
     }
+
+    public List<String> selectFood() {
+        return this.mapper.selectFood();
+    }
 }
