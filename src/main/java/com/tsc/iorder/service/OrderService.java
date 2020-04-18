@@ -2,6 +2,7 @@ package com.tsc.iorder.service;
 
 import com.tsc.iorder.dao.OrderMapper;
 import com.tsc.iorder.dao.OrderitemMapper;
+import com.tsc.iorder.domain.ExcelData;
 import com.tsc.iorder.domain.Order;
 import com.tsc.iorder.domain.Orderitem;
 import com.tsc.iorder.domain.SearchParam;
@@ -37,5 +38,9 @@ public class OrderService {
         int i = this.mapper.delete(oid);
         int j = this.orderitemMapper.delete(oid);
         return i!=0&&j!=0;
+    }
+
+    public List<ExcelData> listExcel(SearchParam searchParam) {
+        return this.mapper.listExcel(searchParam);
     }
 }

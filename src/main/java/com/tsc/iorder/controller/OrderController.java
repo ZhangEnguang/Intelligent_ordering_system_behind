@@ -1,13 +1,12 @@
 package com.tsc.iorder.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.tsc.iorder.domain.Order;
-import com.tsc.iorder.domain.Orderitem;
-import com.tsc.iorder.domain.SearchParam;
-import com.tsc.iorder.domain.Vip;
+import com.tsc.iorder.domain.*;
 import com.tsc.iorder.service.OrderService;
 import com.tsc.iorder.service.VipService;
+import com.tsc.iorder.util.CommonUtils;
 import com.tsc.iorder.util.DoubleUtil;
 import com.tsc.iorder.util.UUID16;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,5 +81,19 @@ public class OrderController {
     @ResponseBody
     public boolean delete(@RequestBody Map<String,Object> map){
         return this.service.delete((String)map.get("oid"));
+    }
+    @RequestMapping("/download")
+    @ResponseBody
+    public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, Object> map = CommonUtils.getParameterMap(request);
+        SearchParam searchParam = new SearchParam(map);
+        PageHelper.startPage(searchParam.getStart(),searchParam.getPageSize());
+        searchParam.setStartTime((String) map.get("startTime"));
+        searchParam.setEndTime((String) map.get("endTime"));
+        List<ExcelData> list = this.service.listExcel(searchParam);
+        PageInfo<ExcelData> pageInfo = new PageInfo<>(list);
+        if (pageInfo.getList()!=null){
+            EasyExcel.write(response.getOutputStream(),ExcelData.class).sheet("sheet1").doWrite(pageInfo.getList());
+        }
     }
 }

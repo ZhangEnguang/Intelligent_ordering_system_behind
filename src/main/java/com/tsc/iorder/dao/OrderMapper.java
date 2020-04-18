@@ -1,5 +1,6 @@
 package com.tsc.iorder.dao;
 
+import com.tsc.iorder.domain.ExcelData;
 import com.tsc.iorder.domain.Order;
 import com.tsc.iorder.domain.SearchParam;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,4 +18,6 @@ public interface OrderMapper {
     int selectCount(SearchParam searchParam);
 
     int delete(String oid);
+
+    List<ExcelData> listExcel(SearchParam searchParam);
 }

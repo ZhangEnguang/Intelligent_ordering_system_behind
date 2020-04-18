@@ -11,6 +11,13 @@
         AND o.ordertime >=#{startTime}
         AND o.ordertime &lt;=#{endTime}
     </select>
+    <select id="listExcel" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.ExcelData">
+        SELECT o.oid,o.ordertime,i.count,i.total,u.`name`,f.foodName,if(f.isDiscount=0,f.price,f.price*f.discount/10) price
+        FROM i_order o,i_orderitem i,i_user u,i_food f
+        WHERE o.oid=i.oid AND o.uid = u.id AND i.fid=f.id
+        AND o.ordertime >=#{startTime}
+        AND o.ordertime &lt;=#{endTime}
+    </select>
     <resultMap id="OrderMap" type="com.tsc.iorder.domain.Order">
         <id column="oid" property="oid"/>
         <result column="subtotal" property="subtotal"/>
