@@ -2,6 +2,7 @@ package com.tsc.iorder.domain;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.tsc.iorder.util.DoubleUtil;
 
 @ColumnWidth(20)
 public class ExcelData {
@@ -12,7 +13,7 @@ public class ExcelData {
     @ExcelProperty(value = "菜品名称",index = 2)
     private String foodName;
     @ExcelProperty(value = "菜品现价(元)",index = 3)
-    private Double price;
+    private String price;
     @ExcelProperty(value = "份数",index = 4)
     private Integer count;
     @ExcelProperty(value = "折后小计(元)",index = 5)
@@ -44,11 +45,17 @@ public class ExcelData {
         this.foodName = foodName;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
+        String price = "";
+        if (this.price == null){
+            price = "菜品已删除";
+        }else {
+            price = String.valueOf(DoubleUtil.formatDouble(Double.valueOf(this.price)));
+        }
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

@@ -5,18 +5,33 @@
         insert into i_order(oid,uid,subtotal,ordertime) values (#{oid},#{uid},#{subtotal},#{ordertime})
     </insert>
     <select id="list" parameterType="com.tsc.iorder.domain.SearchParam" resultMap="OrderMap">
-        SELECT o.oid,o.subtotal,o.ordertime,i.count,i.total,u.`name`,f.*
-        FROM i_order o,i_orderitem i,i_user u,i_food f
-        WHERE o.oid=i.oid AND o.uid = u.id AND i.fid=f.id
-        AND o.ordertime >=#{startTime}
-        AND o.ordertime &lt;=#{endTime}
+        select * from (
+            SELECT o.oid,o.subtotal,o.ordertime,i.count,i.total,u.`name`,f.*
+            FROM i_orderitem i
+            LEFT JOIN  i_order o
+            ON o.oid=i.oid
+            LEFT JOIN i_user u
+            ON o.uid = u.id
+            LEFT JOIN i_food f
+            ON i.fid=f.id
+        )s
+        where
+         s.ordertime >=#{startTime}
+        AND s.ordertime &lt;=#{endTime}
     </select>
     <select id="listExcel" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.ExcelData">
-        SELECT o.oid,o.ordertime,i.count,i.total,u.`name`,f.foodName,if(f.isDiscount=0,f.price,f.price*f.discount/10) price
-        FROM i_order o,i_orderitem i,i_user u,i_food f
-        WHERE o.oid=i.oid AND o.uid = u.id AND i.fid=f.id
-        AND o.ordertime >=#{startTime}
-        AND o.ordertime &lt;=#{endTime}
+       select * from (
+       SELECT o.oid,o.ordertime,i.count,i.total,IFNULL(u.`name`,'职员已离职') name,IFNULL(f.foodName,'菜品已删除') foodName,if(f.isDiscount=0,f.price,f.price*f.discount/10) price
+        FROM i_orderitem i
+        LEFT JOIN i_order o
+        ON o.oid=i.oid
+        LEFT JOIN i_user u
+        ON o.uid = u.id
+        LEFT JOIN i_food f
+        ON i.fid=f.id
+        )s
+        where s.ordertime >=#{startTime}
+        AND s.ordertime &lt;=#{endTime}
     </select>
     <resultMap id="OrderMap" type="com.tsc.iorder.domain.Order">
         <id column="oid" property="oid"/>

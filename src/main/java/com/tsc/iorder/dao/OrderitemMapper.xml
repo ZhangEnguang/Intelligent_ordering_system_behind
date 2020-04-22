@@ -29,18 +29,22 @@
     </select>
     <select id="selectCountCount" parameterType="com.tsc.iorder.domain.SearchParam" resultType="int">
         SELECT SUM(i.count)
-        FROM i_orderitem i,i_order o,i_food f
-        WHERE i.oid = o.oid
-        AND i.fid = f.id
-        AND o.ordertime >=#{startTime}
+        FROM i_orderitem i
+        LEFT JOIN i_order o
+        ON i.oid = o.oid
+        LEFT JOIN i_food f
+        ON i.fid = f.id
+        where o.ordertime >=#{startTime}
         AND o.ordertime &lt;=#{endTime}
     </select>
     <select id="selectMoneyCount" parameterType="com.tsc.iorder.domain.SearchParam" resultType="double">
         SELECT SUM(i.total)
-        FROM i_orderitem i,i_order o,i_food f
-        WHERE i.oid = o.oid
-        AND i.fid = f.id
-        AND o.ordertime >=#{startTime}
+        FROM i_orderitem i
+        LEFT JOIN i_order o
+        ON i.oid = o.oid
+        LEFT JOIN i_food f
+        ON i.fid = f.id
+        where o.ordertime >=#{startTime}
         AND o.ordertime &lt;=#{endTime}
     </select>
     <select id="selectPieData" parameterType="com.tsc.iorder.domain.SearchParam" resultType="double">

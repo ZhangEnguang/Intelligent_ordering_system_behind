@@ -56,6 +56,11 @@ public class LoginController {
         cookieRoot.setDomain("localhost");
         cookieRoot.setPath("/");
         response.addCookie(cookieRoot);
+        Cookie cookieTable = new Cookie("table", null);
+        cookieTable.setMaxAge(0);
+        cookieTable.setDomain("localhost");
+        cookieTable.setPath("/");
+        response.addCookie(cookieTable);
     }
     @RequestMapping("/isLogin")
     @ResponseBody

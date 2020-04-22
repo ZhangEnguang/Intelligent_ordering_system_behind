@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsc.iorder.dao.TableMapper">
+    <select id="getList" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.Table">
+         select * from i_table where  tableName like '%${input}%'
+    </select>
+    <select id="list" resultType="com.tsc.iorder.domain.Table">
+        select * from i_table
+    </select>
+    <select id="findTableByTableName" parameterType="string" resultType="com.tsc.iorder.domain.Table">
+        select * from i_table where  tableName = #{tableName}
+    </select>
+    <select id="findTableById" parameterType="int" resultType="com.tsc.iorder.domain.Table">
+        select * from i_table where  id = #{id}
+    </select>
+    <insert id="addTable" parameterType="string">
+        insert into i_table(tableName) values (#{tabelName})
+    </insert>
+    <update id="update" parameterType="com.tsc.iorder.domain.Table">
+        update i_table set tableName = #{tableName} where id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from i_table where id = #{id}
+    </delete>
+</mapper>
