@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tsc.iorder.dao.OrderMapper">
     <insert id="saveOrder" parameterType="com.tsc.iorder.domain.Order">
-        insert into i_order(oid,uid,subtotal,ordertime) values (#{oid},#{uid},#{subtotal},#{ordertime})
+        insert into i_order(oid,uid,subtotal,ordertime,tid) values (#{oid},#{uid},#{subtotal},#{ordertime},#{tid})
     </insert>
     <select id="list" parameterType="com.tsc.iorder.domain.SearchParam" resultMap="OrderMap">
         select * from (
-            SELECT o.oid,o.subtotal,o.ordertime,i.count,i.total,u.`name`,f.*
+            SELECT o.oid,o.subtotal,o.ordertime,i.count,i.total,u.`name`,f.*,t.tableName,o.tid
             FROM i_orderitem i
             LEFT JOIN  i_order o
             ON o.oid=i.oid
@@ -14,14 +14,19 @@
             ON o.uid = u.id
             LEFT JOIN i_food f
             ON i.fid=f.id
+            LEFT JOIN i_table t
+            ON o.tid = t.id
         )s
-        where
-         s.ordertime >=#{startTime}
+        WHERE s.oid like '%${input}%'
+         AND s.ordertime >=#{startTime}
         AND s.ordertime &lt;=#{endTime}
+        <if test="tid!=null ">
+            and s.tid = #{tid}
+        </if>
     </select>
     <select id="listExcel" parameterType="com.tsc.iorder.domain.SearchParam" resultType="com.tsc.iorder.domain.ExcelData">
        select * from (
-       SELECT o.oid,o.ordertime,i.count,i.total,IFNULL(u.`name`,'职员已离职') name,IFNULL(f.foodName,'菜品已删除') foodName,if(f.isDiscount=0,f.price,f.price*f.discount/10) price
+       SELECT o.oid,o.ordertime,t.tableName,i.count,i.total,IFNULL(u.`name`,'职员已离职') name,IFNULL(f.foodName,'菜品已删除') foodName,if(f.isDiscount=0,f.price,f.price*f.discount/10) price
         FROM i_orderitem i
         LEFT JOIN i_order o
         ON o.oid=i.oid
@@ -29,8 +34,11 @@
         ON o.uid = u.id
         LEFT JOIN i_food f
         ON i.fid=f.id
+        LEFT JOIN i_table t
+        ON o.tid = t.id
         )s
-        where s.ordertime >=#{startTime}
+         WHERE s.oid like '%${input}%'
+         AND s.ordertime >=#{startTime}
         AND s.ordertime &lt;=#{endTime}
     </select>
     <resultMap id="OrderMap" type="com.tsc.iorder.domain.Order">
@@ -38,6 +46,7 @@
         <result column="subtotal" property="subtotal"/>
         <result column="ordertime" property="ordertime"/>
         <result column="name" property="name"/>
+        <result column="tableName" property="tableName"/>
         <collection property="orderitems" ofType="com.tsc.iorder.domain.Orderitem" resultMap="OrderitemMap"></collection>
     </resultMap>
     <resultMap id="OrderitemMap" type="com.tsc.iorder.domain.Orderitem">

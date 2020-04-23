@@ -30,12 +30,14 @@ public class OrderController {
     private VipService vipService;
     @RequestMapping("/addOrder")
     @ResponseBody
-    public void addOrder(@RequestBody Order order,String phone){
+    public Map<String,Object> addOrder(@RequestBody Order order,String phone,int tid){
+        Map<String,Object> map = new HashMap<>();
         Vip byPhone = null;
         if (phone!=null&&!phone.equals("")){
             byPhone = vipService.findByPhone(phone);
         }
         order.setOid(UUID16.getUUID16());
+        order.setTid(tid);
         List<Orderitem> orderitems = order.getOrderitems();
         for (Orderitem orderitem : orderitems) {
             Double formatDouble;
@@ -61,6 +63,8 @@ public class OrderController {
             this.vipService.updateMoney(byPhone);
         }
         this.service.saveOrder(order);
+        map.put("oid",order.getOid());
+        return map;
     }
     @RequestMapping("/list")
     @ResponseBody

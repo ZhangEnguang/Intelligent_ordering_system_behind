@@ -14,6 +14,7 @@ public class SearchParam {
     private String endTime;
     private String foodName;
     private String typeName;
+    private Integer tid;
 
     public SearchParam() {
     }
@@ -22,6 +23,11 @@ public class SearchParam {
         this.pageSize = (int) params.get("pageSize");
         if (params.get("input")!=null){
             this.input = (String) params.get("input");
+        }
+        if (params.get("tid")!=null && params.get("tid")!=""){
+            this.tid = (Integer) params.get("tid");
+        }else {
+            this.tid = null;
         }
     }
     public int getStart() {
@@ -110,5 +116,13 @@ public class SearchParam {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public Integer getTid() {
+        return tid;
+    }
+
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 }

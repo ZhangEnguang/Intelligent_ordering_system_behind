@@ -9,21 +9,27 @@ public class Order {
     private String uid;
     private String name;
     private double subtotal;
+    private int tid;
+    private String tableName;
     private List<Orderitem> orderitems;
     private String ordertime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-    public Order(String oid, String uid,String name, double subtotal, List<Orderitem> orderitems, String ordertime) {
+    public Order(String oid, String uid,String name, double subtotal, int tid,String tableName,List<Orderitem> orderitems, String ordertime) {
         this.oid = oid;
         this.uid = uid;
         this.name = name;
         this.subtotal = subtotal;
+        this.tid = tid;
+        this.tableName = tableName;
         this.orderitems = orderitems;
         this.ordertime = ordertime;
     }
 
-    public Order(String uid,String name, double subtotal, List<Orderitem> orderitems, String ordertime) {
+    public Order(String uid,String name, double subtotal, int tid,String tableName,List<Orderitem> orderitems, String ordertime) {
         this.uid = uid;
         this.name = name;
+        this.tid = tid;
+        this.tableName = tableName;
         this.subtotal = subtotal;
         this.orderitems = orderitems;
         this.ordertime = ordertime;
@@ -80,6 +86,22 @@ public class Order {
         this.name = name;
     }
 
+    public int getTid() {
+        return tid;
+    }
+
+    public void setTid(int tid) {
+        this.tid = tid;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -87,6 +109,8 @@ public class Order {
                 ", uid='" + uid + '\'' +
                 ", name='" + name + '\'' +
                 ", subtotal=" + subtotal +
+                ", tid=" + tid +
+                ", tableName='" + tableName + '\'' +
                 ", orderitems=" + orderitems +
                 ", ordertime='" + ordertime + '\'' +
                 '}';

@@ -18,7 +18,9 @@ public class ExcelData {
     private Integer count;
     @ExcelProperty(value = "折后小计(元)",index = 5)
     private Double total;
-    @ExcelProperty(value = "生成时间",index = 6)
+    @ExcelProperty(value = "餐桌名称",index = 6)
+    private String tableName;
+    @ExcelProperty(value = "生成时间",index = 7)
     private String ordertime;
 
     public String getOid() {
@@ -81,5 +83,19 @@ public class ExcelData {
 
     public void setOrdertime(String ordertime) {
         this.ordertime = ordertime;
+    }
+
+    public String getTableName() {
+        String tableName = "";
+        if (this.tableName == null){
+            tableName = "餐桌已移除";
+        }else {
+            tableName = this.tableName;
+        }
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }
