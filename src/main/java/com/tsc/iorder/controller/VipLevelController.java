@@ -20,7 +20,7 @@ import java.util.Map;
 public class VipLevelController {
     @Autowired
     private VipLevelService service;
-    @RequestMapping("list")
+    @RequestMapping("/list")
     @ResponseBody
     public Map<String,Object> list(@RequestBody Map<String,Object> map){
         Map<String,Object> resMap = new HashMap<>();
@@ -31,7 +31,7 @@ public class VipLevelController {
         resMap.put("page",pageInfo);
         return resMap;
     }
-    @RequestMapping("check")
+    @RequestMapping("/check")
     @ResponseBody
     public Map<String,Object> check(@RequestBody Map<String,Object> map){
         Map<String,Object> resMap = new HashMap<>();
